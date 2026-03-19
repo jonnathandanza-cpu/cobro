@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MASTER CONTROL | JA_SOLUTECH</title>
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+    <style>
+        :root { --accent: #bc13fe; --neon: #00f3ff; --dark: #08080a; }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; padding: 30px; }
+        .admin-card { max-width: 800px; margin: auto; background: #111; padding: 25px; border-radius: 15px; border: 1px solid var(--accent); }
+        h1 { color: var(--accent); letter-spacing: 3px; font-size: 1.2rem; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .form-group { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 20px; }
+        input, button { padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: white; }
+        button { background: var(--accent); cursor: pointer; font-weight: bold; border: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        .status-pendiente { color: #ffae00; text-shadow: 0 0 5px #ffae00; }
+        .status-aprobado { color: #00ff88; text-shadow: 0 0 5px #00ff88; }
+        .btn-check { background: var(--neon); color: #000; padding: 5px 12px; font-size: 0.7rem; }
+        .btn-del { background: #ff4b4b; padding: 5px 12px; font-size: 0.7rem; margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h1>GESTOR DE ENTREGAS JA_SOLUTECH</h1>
+    
+    <div class="form-group">
+        <input type="text" id="cName" placeholder="Nombre exacto del cliente">
+        <input type="file" id="cFiles" multiple>
+        <button onclick="registrar()">SUBIR Y REGISTRAR</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>CLIENTE</th>
+                <th>ESTADO ACTUAL</th>
+                <th>CONTROLES</th>
+            </tr>
+        </thead>
+        <tbody id="listaAdmin"></tbody>
+    </table>
+</div>
+
+<script>
+    const db = new Dexie("JA_Storage_v4");
+    db.version(1).stores({ users: "name, status", docs: "++id, owner, fileName, blob" });
+
+    async function registrar() {
+        const name = document.getElementById('cName').value.trim().toLowerCase();
+        const files = document.getElementById('cFiles').files;
+        if(!name || files.length === 0) return alert("Faltan datos.");
+
+        await db.users.put({ name: name, status: "pendiente" });
+        for(let f of files) { await db.docs.add({ owner: name, fileName: f.name, blob: f }); }
+        
+        alert("Cliente registrado en estado 'Pendiente'.");
+        document.getElementById('cName').value = "";
+        render();
+    }
+
+    async function render() {
+        const users = await db.users.toArray();
+        document.getElementById('listaAdmin').innerHTML = users.map(u => `
+            <tr>
+                <td><b>${u.name.toUpperCase()}</b></td>
+                <td class="status-${u.status}">${u.status.toUpperCase()}</td>
+                <td>
+                    ${u.status === 'pendiente' ? `<button class="btn-check" onclick="aprobar('${u.name}')">LIBERAR ARCHIVOS</button>` : '✅'}
+                    <button class="btn-del" onclick="borrar('${u.name}')">BORRAR</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    async function aprobar(n) { await db.users.update(n, { status: "aprobado" }); render(); }
+    async function borrar(n) { if(confirm("¿Eliminar?")) { await db.users.delete(n); await db.docs.where("owner").equals(n).delete(); render(); } }
+    render();
+</script>
+</body>
+</html>
