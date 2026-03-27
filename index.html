@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -90,6 +90,69 @@
         .text-gold-main { color: var(--gold-mid); }
         
         @media print { .no-print { display: none; } }
+
+        /* Ajustes para pantallas más pequeñas (móviles) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* Ajusta el padding general del cuerpo en móviles */
+            }
+            header {
+                margin-bottom: 2rem; /* Reduce el margen inferior del header */
+            }
+            h1.gold-liquid-text {
+                font-size: 2.5rem; /* Ajusta el tamaño del título principal */
+                letter-spacing: 0.25em; /* Reduce el espaciado de letras */
+            }
+            header p { /* Ajusta el subtítulo del header */
+                font-size: 0.6rem;
+                letter-spacing: 0.4em;
+            }
+            .premium-card-glass {
+                padding: 1.5rem; /* Reduce el padding de las tarjetas */
+            }
+            .premium-card-glass h2 {
+                font-size: 0.9rem; /* Ajusta el tamaño de los títulos de sección */
+                letter-spacing: 0.15em;
+                margin-bottom: 1.5rem;
+            }
+            .premium-card-glass h2 span { /* El círculo con el número */
+                width: 2rem;
+                height: 2rem;
+                line-height: 2rem;
+                font-size: 0.7rem;
+            }
+            .space-y-8 > div { /* Espaciado en el formulario */
+                margin-bottom: 1.5rem;
+            }
+            .grid.md:grid-cols-2 { /* Asegura que las columnas apiladas en móvil sean más compactas */
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .btn-gold-elite {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                font-size: 0.7rem;
+                letter-spacing: 0.25em;
+            }
+            /* Ajustes para la tabla en el modal de administración */
+            #modalAdmin .bg-white\/5 {
+                overflow-x: auto; /* Permite el desplazamiento horizontal si la tabla es más ancha que la pantalla */
+            }
+            #tablaAdmin {
+                min-width: 650px; /* Un ancho mínimo para que la tabla sea legible */
+            }
+            #modalAdmin h2.gold-liquid-text {
+                font-size: 1.8rem;
+                letter-spacing: 0.1em;
+            }
+            #modalAdmin a {
+                font-size: 0.6rem;
+                letter-spacing: 0.2em;
+            }
+            #modalAdmin button { /* Botón de cerrar modal */
+                font-size: 3rem;
+            }
+        }
     </style>
 </head>
 <body class="p-4 md:p-10">
