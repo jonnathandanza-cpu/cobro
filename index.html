@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonnathan Arango | Control de Gestión Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@100;300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-deep: #8a6d1c;
+            --gold-mid: #d4af37;
+            --gold-light: #f9e29c;
+            --gold-brushed: #bf953f;
+            --black-matte: #050505;
+        }
+
+        body {
+            background-color: var(--black-matte);
+            background-image: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #050505 80%);
+            color: #d1d1d1;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-luxury { font-family: 'Cinzel', serif; }
+
+        .gold-liquid-text {
+            background: linear-gradient(135deg, #8a6d1c 0%, #d4af37 25%, #f9e29c 50%, #d4af37 75%, #8a6d1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: flow 5s linear infinite;
+        }
+
+        @keyframes flow { to { background-position: 200% center; } }
+
+        .premium-border-gold {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--black-matte), var(--black-matte)) padding-box,
+                        linear-gradient(135deg, var(--gold-deep), var(--gold-light), var(--gold-deep)) border-box;
+        }
+
+        .btn-gold-elite {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 30%, #d4af37 50%, #fcf6ba 70%, #bf953f 100%);
+            background-size: 200% auto;
+            color: #000;
+            font-weight: 900;
+            box-shadow: 0 4px 20px rgba(138, 109, 28, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 2px;
+        }
+
+        .btn-gold-elite:hover {
+            background-position: right center;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .premium-card-glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.4s;
+        }
+        
+        .premium-card-glass:hover { border-color: rgba(212, 175, 55, 0.4); }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.6) !important;
+            border: 1px solid #2a2a2a !important;
+            color: #fff !important;
+            transition: all 0.3s;
+        }
+
+        input:focus { border-color: var(--gold-mid) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); outline: none; }
+        
+        .checkbox-gold { accent-color: var(--gold-mid); transform: scale(1.2); }
+
+        ::-webkit-scrollbar { width: 4px; background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-mid); }
+
+        .gold-glow { box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); }
+        .text-gold-main { color: var(--gold-mid); }
+        
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <header class="max-w-5xl mx-auto text-center mb-16 no-print flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full border-2 border-gold-deep flex items-center justify-center mb-4 gold-glow">
+            <span class="font-luxury text-3xl gold-liquid-text font-bold">JA</span>
+        </div>
+        <h1 class="font-luxury text-4xl tracking-[0.4em] gold-liquid-text mb-2 uppercase">Jonnathan Arango</h1>
+        <p class="text-[10px] tracking-[0.6em] text-gray-500 uppercase font-bold">Coreógrafo & Artista Integral</p>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 no-print">
+        <section class="premium-card-glass p-10 premium-border-gold">
+            <h2 class="font-luxury text-gold-main mb-10 tracking-widest uppercase border-b border-white/5 pb-2 text-sm flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full border border-gold-mid/30 text-center text-xs leading-7 text-gold-mid">01</span>
+                Registro de Venta Elite
+            </h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-3 ml-1">Nombre Completo del Artista</label>
+                    <input type="text" id="nombreCliente" placeholder="Ej: JUAN PÉREZ" class="w-full p-4 rounded-xl text-sm uppercase tracking-wider">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-4 ml-1">Seleccionar Montaje</label>
+                        <div class="space-y-4">
+                            <label class="flex items-center space-x-3 text-xs cursor-pointer"><input type="radio" name="montaje" value="solista" checked onchange="actualizarInterfaz()" class="checkbox-gold"><span>Solista ($200k)</span></label>
+                            <label class="flex items-center space-x-3 text-xs cursor-pointer"><input type="radio" name="montaje" value="duo" onchange="actualizarInterfaz()" class="checkbox-gold"><span>Dúo ($300k)</span></label>
+                            <label class="flex items-center space-x-3 text-xs cursor-pointer"><input type="radio" name="montaje" value="pareja" onchange="actualizarInterfaz()" class="checkbox-gold"><span>Pareja ($300k)</span></label>
+                            <label class="flex items-center space-x-3 text-xs cursor-pointer"><input type="radio" name="montaje" value="ninguno" onchange="actualizarInterfaz()" class="checkbox-gold"><span class="text-gray-600 font-light">Sin Montaje</span></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-gray-500 uppercase tracking-widest block mb-4 ml-1">Adicionales / Método</label>
+                        <label class="flex items-center space-x-3 text-xs cursor-pointer mb-8"><input type="checkbox" id="incluyePista" onchange="actualizarInterfaz()" class="checkbox-gold"><span class="text-gold-mid font-bold">Pista Musical (+$20k)</span></label>
+                        <select id="metodoPago" onchange="togglePagoInfo()" class="w-full p-3 rounded-xl text-xs">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia Nequi">Transferencia Nequi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="infoTransferencia" class="border border-dashed border-gold-mid/50 bg-gold-mid/5 p-5 rounded-xl text-center hidden gold-glow">
+                    <p class="text-[10px] uppercase tracking-widest text-gold-mid mb-1">Nequi Directo</p>
+                    <p class="font-luxury text-xl text-white tracking-widest">323 377 1827</p>
+                </div>
+
+                <div class="bg-black/80 p-8 rounded-2xl border-l-4 border-gold-mid relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl opacity-20"></div>
+                    <div class="flex justify-between text-[10px] text-gray-500 uppercase tracking-widest mb-2 relative z-10">
+                        <span>Inversión Total: <b id="display-total" class="text-white">$0</b></span>
+                        <span class="gold-liquid-text font-bold">Abono Requerido (50%)</span>
+                    </div>
+                    <div class="text-4xl font-luxury text-white relative z-10" id="display-abono">$0</div>
+                    <div id="display-division" class="text-[9px] text-gold-mid/70 mt-3 italic hidden relative z-10"></div>
+                </div>
+
+                <button onclick="registrarVenta()" class="btn-gold-elite w-full py-6 rounded-xl text-xs uppercase tracking-[0.3em] shadow-xl">Generar Factura Unificada</button>
+            </div>
+        </section>
+
+        <section class="premium-card-glass p-10 flex flex-col premium-border-gold">
+            <h2 class="font-luxury text-gray-600 mb-10 tracking-widest uppercase border-b border-white/5 pb-2 text-sm flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full border border-gray-800 text-center text-xs leading-7 text-gray-800">02</span>
+                Biblioteca de Activos
+            </h2>
+            <div class="mb-10">
+                <input type="text" id="busquedaBailarin" oninput="buscarPista()" placeholder="Escribe tu nombre profesional..." class="w-full p-4 rounded-xl text-sm border-dashed border-gold-mid/20 uppercase focus:border-gold-mid">
+            </div>
+            
+            <div id="resultadoBusqueda" class="flex-grow flex flex-col space-y-4">
+                 <p class="text-gray-800 text-[10px] uppercase tracking-widest text-center py-10">Los resultados aparecerán aquí</p>
+            </div>
+
+            <button onclick="accesoMaster()" class="mt-8 w-full py-4 border border-white/5 rounded-2xl text-[9px] uppercase tracking-[0.6em] text-gray-700 hover:text-gold-mid hover:border-gold-mid/20 transition-all duration-500">Acceso Master Control</button>
+        </section>
+    </main>
+
+    <div id="modalAdmin" class="fixed inset-0 bg-black/98 hidden z-[9999] p-4 md:p-10 overflow-y-auto no-print">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center mb-6 border-b border-white/5 pb-5">
+                <div>
+                    <h2 class="font-luxury text-3xl gold-liquid-text uppercase tracking-widest">Base de Datos Institucional</h2>
+                    <a href="https://drive.google.com/drive/folders/1XuwhlXdtuKtsh6XDu-Uibdq5Yc178-l?usp=drive_link" target="_blank" class="text-[9px] text-gold-mid underline tracking-[0.3em] uppercase mt-2 block hover:text-white transition">Abrir Carpeta Maestra Drive 📁</a>
+                </div>
+                <button onclick="cerrarAdmin()" class="text-white text-5xl font-thin hover:text-gold-mid">&times;</button>
+            </div>
+            <div class="bg-white/5 rounded-3xl overflow-x-auto border border-gold-mid/10">
+                <table class="w-full text-left text-[11px] min-w-[800px]">
+                    <thead class="bg-black text-gold-mid uppercase tracking-widest">
+                        <tr>
+                            <th class="p-5 font-light">Fecha</th>
+                            <th class="p-5 font-light">Artista</th>
+                            <th class="p-5 font-light">Conceptos</th>
+                            <th class="p-5 font-light">Pista (Drive)</th>
+                            <th class="p-5 font-light">Saldo</th>
+                            <th class="p-5 text-right font-light">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaAdmin" class="divide-y divide-white/5"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PRECIOS = { solista: 200000, duo: 300000, pareja: 300000, pista: 20000, ninguno: 0 };
+        let db = JSON.parse(localStorage.getItem('ja_system_v3')) || [];
+
+        function togglePagoInfo() {
+            const met = document.getElementById('metodoPago').value;
+            document.getElementById('infoTransferencia').style.display = (met === 'Transferencia Nequi') ? 'block' : 'none';
+        }
+
+        function actualizarInterfaz() {
+            const montajeSel = document.querySelector('input[name="montaje"]:checked').value;
+            const incluyePista = document.getElementById('incluyePista').checked;
+            let total = PRECIOS[montajeSel] + (incluyePista ? PRECIOS.pista : 0);
+            const abono = total / 2;
+            document.getElementById('display-total').innerText = `$${total.toLocaleString()}`;
+            document.getElementById('display-abono').innerText = `$${abono.toLocaleString()}`;
+            const divInfo = document.getElementById('display-division');
+            if(montajeSel === 'duo' || montajeSel === 'pareja') {
+                divInfo.classList.remove('hidden');
+                divInfo.innerText = `* Por integrante: $${(abono/2).toLocaleString()} para el abono del 50%.`;
+            } else divInfo.classList.add('hidden');
+        }
+
+        function registrarVenta() {
+            const nombre = document.getElementById('nombreCliente').value.trim().toUpperCase();
+            if(!nombre) return alert("Ingrese nombre artístico");
+            const montajeSel = document.querySelector('input[name="montaje"]:checked').value;
+            const incluyePista = document.getElementById('incluyePista').checked;
+            const met = document.getElementById('metodoPago').value;
+            let conceptos = [];
+            let total = PRECIOS[montajeSel] + (incluyePista ? PRECIOS.pista : 0);
+            if(montajeSel !== 'ninguno') conceptos.push("MONTAJE " + montajeSel.toUpperCase());
+            if(incluyePista) conceptos.push("PISTA MUSICAL");
+            if(conceptos.length === 0) return alert("Selecciona un servicio");
+            
+            const nuevaVenta = { id: Date.now(), nombre, servicio: conceptos.join(" + "), metodo: met, total, pagado: total / 2, archivoPista: null, fecha: new Date().toLocaleDateString('es-CO'), tipo: montajeSel };
+            db.push(nuevaVenta);
+            localStorage.setItem('ja_system_v3', JSON.stringify(db));
+            imprimirDoc(nuevaVenta, 'FACTURA');
+            
+            document.getElementById('nombreCliente').value = "";
+            document.getElementById('incluyePista').checked = false;
+            actualizarInterfaz();
+        }
+
+        function buscarPista() {
+            const query = document.getElementById('busquedaBailarin').value.trim().toUpperCase();
+            const res = document.getElementById('resultadoBusqueda');
+            if(query.length < 3) return res.innerHTML = `<p class="text-gray-800 text-[10px] uppercase tracking-widest text-center py-10">Escribe al menos 3 letras...</p>`;
+            
+            const r = db.find(reg => reg.nombre.includes(query));
+            if(r) {
+                const saldo = r.total - r.pagado;
+                res.innerHTML = `
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 animate-fade-in">
+                        <p class="text-[9px] text-gold-mid uppercase tracking-[0.2em] mb-1">Registro Encontrado</p>
+                        <h3 class="font-luxury text-xl text-white tracking-widest mb-2">${r.nombre}</h3>
+                        <div class="flex justify-between items-center border-t border-white/5 pt-4">
+                            <div>
+                                <p class="text-[10px] text-gray-500 uppercase">${r.servicio}</p>
+                                <p class="text-[10px] ${saldo <= 0 ? 'text-green-500' : 'text-red-400'} font-bold mt-1">
+                                    ${saldo <= 0 ? 'ESTADO: SALDADO' : 'SALDO PENDIENTE: $' + saldo.toLocaleString()}
+                                </p>
+                            </div>
+                            <div>
+                                ${saldo <= 0 && r.archivoPista ? 
+                                    `<a href="${r.archivoPista}" target="_blank" class="text-gold-mid font-bold text-[11px] underline tracking-widest uppercase hover:text-white">Descargar Audio</a>` : 
+                                    (saldo <= 0 ? `<span class="text-blue-400 text-[9px] italic">Audio en proceso...</span>` : `<span class="text-gray-600 text-[9px] italic tracking-tight">Requiere Pago Total</span>`)
+                                }
+                            </div>
+                        </div>
+                    </div>`;
+            } else {
+                res.innerHTML = `<p class="text-gray-700 text-[10px] text-center py-10">No se encontró ningún artista con ese nombre.</p>`;
+            }
+        }
+
+        function renderizarTabla() {
+            const container = document.getElementById('tablaAdmin');
+            container.innerHTML = db.map(r => {
+                const saldo = r.total - r.pagado;
+                return `
+                <tr>
+                    <td class="p-5 text-gray-500 text-[9px]">${r.fecha}</td>
+                    <td class="p-5 font-bold uppercase text-white tracking-wide">${r.nombre}</td>
+                    <td class="p-5 text-gray-400 text-[9px] tracking-widest uppercase">${r.servicio}</td>
+                    <td class="p-5">
+                        <button onclick="vincularLink(${r.id})" class="text-[10px] ${r.archivoPista ? 'text-green-500 font-bold' : 'text-gold-main underline uppercase tracking-widest'}">
+                            ${r.archivoPista ? '✓ LINK DRIVE' : '+ VINCULAR'}
+                        </button>
+                    </td>
+                    <td class="p-5 ${saldo === 0 ? 'text-green-500' : 'text-red-400 font-bold text-base'}">$${saldo.toLocaleString()}</td>
+                    <td class="p-5 text-right space-x-2">
+                        <button onclick="reImprimir(${r.id})" class="text-gray-600 text-[9px] uppercase hover:text-white transition">DOC</button>
+                        ${saldo > 0 ? `<button onclick="saldar(${r.id})" class="text-gold-main font-bold text-[9px] hover:underline uppercase tracking-widest">SALDAR</button>` : `<button onclick="reImprimirPS(${r.id})" class="text-blue-400 font-bold text-[9px] hover:underline uppercase tracking-widest">P&S</button>`}
+                        <button onclick="eliminar(${r.id})" class="text-red-900 ml-3 hover:text-red-500">×</button>
+                    </td>
+                </tr>`;
+            }).reverse().join('');
+        }
+
+        function vincularLink(id) {
+            const actual = db.find(r => r.id === id).archivoPista || "";
+            const link = prompt("Pega el enlace de Google Drive para este artista:", actual);
+            if(link !== null) {
+                db = db.map(r => r.id === id ? {...r, archivoPista: link} : r);
+                localStorage.setItem('ja_system_v3', JSON.stringify(db));
+                renderizarTabla();
+            }
+        }
+
+        function saldar(id) { db = db.map(r => r.id === id ? {...r, pagado: r.total} : r); localStorage.setItem('ja_system_v3', JSON.stringify(db)); renderizarTabla(); alert("Cuenta saldada."); }
+        function reImprimir(id) { imprimirDoc(db.find(r => r.id === id), 'FACTURA'); }
+        function reImprimirPS(id) { imprimirDoc(db.find(r => r.id === id), 'PAZ Y SALVO'); }
+        function eliminar(id) { if(confirm("¿Eliminar registro?")) { db = db.filter(r => r.id !== id); localStorage.setItem('ja_system_v3', JSON.stringify(db)); renderizarTabla(); } }
+
+        function accesoMaster() {
+            const pass = prompt("Introduce la clave de Director:");
+            if (pass === "091993") {
+                document.getElementById('modalAdmin').classList.remove('hidden');
+                renderizarTabla();
+            } else if (pass !== null) alert("Clave incorrecta");
+        }
+
+        function cerrarAdmin() { document.getElementById('modalAdmin').classList.add('hidden'); }
+
+        function imprimirDoc(v, tipo) {
+            const win = window.open('', '_blank');
+            const saldo = v.total - v.pagado;
+            const fileName = `${tipo}_${v.nombre.replace(/\s+/g, '_')}`;
+            win.document.write(`<html><head><title>${tipo}</title><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet"><style>body{font-family:'Inter',sans-serif;padding:40px;color:#333;background:#fff}.no-save{display:flex;justify-content:center;margin-bottom:30px}.btn-pdf{background:linear-gradient(135deg,#bf953f,#d4af37);color:#000;border:none;padding:15px 40px;font-weight:bold;cursor:pointer;border-radius:8px;text-transform:uppercase;font-size:11px;letter-spacing:2px}.invoice-container{max-width:800px;margin:0 auto;padding:30px;border:1px solid #f0f0f0;position:relative}.header{text-align:center;border-bottom:2px solid #d4af37;padding-bottom:20px}.logo{font-family:'Cinzel',serif;font-size:40px;color:#d4af37;border:1px solid #d4af37;width:70px;height:70px;line-height:70px;border-radius:50%;margin:0 auto 10px}.title{text-align:center;font-weight:bold;margin:30px 0;color:#d4af37;font-size:24px;text-transform:uppercase;letter-spacing:2px;font-family:'Cinzel',serif}.box{background:#fcfcfc;padding:30px;border-radius:15px;border:1px solid #f0f0f0}.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f0;font-size:14px}.footer{margin-top:60px;text-align:center;font-size:10px;color:#999;border-top:1px solid #eee;padding-top:20px}</style></head><body><div class="no-save"><button class="btn-pdf" onclick="descargar()">Descargar PDF</button></div><div id="capture" class="invoice-container"><div class="header"><div class="logo">JA</div><h1 style="margin:0;letter-spacing:5px;font-family:'Cinzel'">JONNATHAN ARANGO</h1><p style="color:#d4af37;text-transform:uppercase;font-size:10px;letter-spacing:3px;margin:5px 0;">Coreógrafo y Bailarín</p></div><div class="title">${tipo} OFICIAL</div><div style="margin-bottom:30px"><p style="margin:0;color:#888;font-size:12px;text-transform:uppercase">Artista:</p><h2 style="margin:5px 0;font-size:22px">${v.nombre}</h2></div><div class="box"><div class="row"><span>Concepto:</span><span>${v.servicio}</span></div><div class="row"><span>Método:</span><span>${v.metodo}</span></div><div class="row"><span>Fecha:</span><span>${v.fecha}</span></div><div class="row" style="font-weight:bold;border-top:2px solid #333;margin-top:15px;padding-top:15px"><span>TOTAL:</span><span>$${v.total.toLocaleString()}</span></div><div class="row"><span>ABONO:</span><span>$${v.pagado.toLocaleString()}</span></div><div class="row" style="font-size:24px;color:#d4af37;font-weight:bold;border:0;margin-top:10px;font-family:'Cinzel'"><span>SALDO:</span><span>$${saldo.toLocaleString()}</span></div></div><div class="footer"><p>NIT. 1114902046-1 | Control Interno JA SOLUTECH</p></div></div><script>function descargar(){const element=document.getElementById('capture');const opt={margin:[10,10,10,10],filename:'${fileName}.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'letter',orientation:'portrait'}};html2pdf().set(opt).from(element).save()}<\/script></body></html>`);
+        }
+
+        actualizarInterfaz();
+    </script>
+</body>
+</html>
